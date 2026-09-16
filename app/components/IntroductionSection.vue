@@ -1,10 +1,8 @@
 <template>
   <section class="bg-white py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-
       <!-- Inversion de l'ordre sur mobile (flex-col-reverse) pour que l'image apparaisse sous le texte si besoin, ou grille classique sur desktop -->
       <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-
         <!-- Image Wrapper adapté au format panoramique -->
         <div class="relative overflow-hidden rounded-3xl bg-sky-900 shadow-xl aspect-video lg:aspect-[4/3] xl:aspect-[16/10]">
           <!--
@@ -56,7 +54,6 @@
             </a>
           </div>
         </div>
-
       </div>
     </div>
   </section>

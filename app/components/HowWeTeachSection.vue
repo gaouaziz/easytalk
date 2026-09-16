@@ -1,8 +1,10 @@
 <template>
-  <section id="learning" class="bg-[#06213d] py-16 sm:py-24">
+  <section
+    id="learning"
+    class="bg-[#06213d] py-16 sm:py-24"
+  >
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-
         <!-- Image (À droite sur grand écran grâce à lg:order-last, en bas sur mobile) -->
         <div class="w-full lg:order-last">
           <div class="relative overflow-hidden rounded-3xl bg-[#041629] shadow-2xl border border-white/5 aspect-video lg:aspect-[4/3] xl:aspect-[16/10]">
@@ -41,7 +43,6 @@
 
           <!-- Liste des étapes synchronisée avec l'illustration -->
           <div class="mt-10 space-y-6">
-
             <!-- Étape 1 : Écoute et Expression -->
             <div class="group flex gap-4">
               <div
@@ -94,10 +95,8 @@
                 </p>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   </section>

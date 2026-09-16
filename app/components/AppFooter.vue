@@ -1,9 +1,7 @@
 <template>
   <footer class="bg-[#03172b] text-white border-t border-white/5">
     <div class="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-
       <div class="grid gap-10 md:grid-cols-3 items-start">
-
         <!-- Brand & Socials -->
         <div class="space-y-5">
           <!-- Ajout de p-0.5 et overflow-visible pour éviter que le logo / la lettre "k" soit coupée -->
@@ -12,7 +10,7 @@
               src="/images/easy-talk-logo.png"
               alt="EasyTalk Logo"
               class="h-full w-auto object-contain overflow-visible p-0.5"
-            />
+            >
           </div>
 
           <p class="max-w-sm text-sm leading-6 text-white/60">
@@ -34,7 +32,7 @@
                 class="h-5 w-5 fill-current text-white/70 group-hover:text-white transition-colors duration-300"
                 viewBox="0 0 24 24"
               >
-                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.128 22 16.991 22 12z"/>
+                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.128 22 16.991 22 12z" />
               </svg>
             </a>
           </div>
@@ -48,25 +46,37 @@
 
           <ul class="mt-4 space-y-3 text-sm text-white/60">
             <li>
-              <a href="#home" class="transition-colors duration-200 hover:text-orange-400">
+              <a
+                href="#home"
+                class="transition-colors duration-200 hover:text-orange-400"
+              >
                 Home
               </a>
             </li>
 
             <li>
-              <a href="#about" class="transition-colors duration-200 hover:text-orange-400">
+              <a
+                href="#about"
+                class="transition-colors duration-200 hover:text-orange-400"
+              >
                 About
               </a>
             </li>
 
             <li>
-              <a href="#faq" class="transition-colors duration-200 hover:text-orange-400">
+              <a
+                href="#faq"
+                class="transition-colors duration-200 hover:text-orange-400"
+              >
                 FAQ
               </a>
             </li>
 
             <li>
-              <a href="#contact" class="transition-colors duration-200 hover:text-orange-400">
+              <a
+                href="#contact"
+                class="transition-colors duration-200 hover:text-orange-400"
+              >
                 Contact
               </a>
             </li>
@@ -90,7 +100,6 @@
             Get Started
           </a>
         </div>
-
       </div>
 
       <!-- Copyright Section (Optimisé avec une marge réduite à py-8) -->
@@ -99,7 +108,6 @@
       >
         &copy; {{ new Date().getFullYear() }} EasyTalk. All rights reserved.
       </div>
-
     </div>
   </footer>
 </template>

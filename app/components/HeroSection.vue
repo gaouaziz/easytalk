@@ -13,10 +13,8 @@
       class="mx-auto flex min-h-[760px] max-w-7xl items-center px-6 py-24 lg:px-8"
     >
       <div class="grid w-full items-center gap-12 lg:grid-cols-2">
-
         <!-- Text -->
         <div class="relative z-10 max-w-2xl">
-
           <span
             class="inline-flex rounded-full border border-orange-400/30 bg-orange-400/10 px-4 py-2 text-sm font-medium text-orange-300"
           >
@@ -54,7 +52,6 @@
               Discover EasyTalk
             </a>
           </div>
-
         </div>
 
         <!-- Appel du nouveau composant isolé -->
@@ -63,7 +60,6 @@
           :is-success="success"
           @submit="onFormSubmit"
         />
-
       </div>
     </div>
   </section>
@@ -76,22 +72,22 @@ const loading = ref(false)
 const success = ref(false)
 
 // C'est ici que vous gérez la vraie logique d'envoi vers votre API
-const onFormSubmit = async (payload) => {
+const onFormSubmit = async (_payload) => {
   loading.value = true
 
   try {
-    // Exemple d'envoi réel avec le module de fetch natif de Nuxt 3 ($fetch)
-    // await $fetch('/api/contact', { method: 'POST', body: payload })
-
     // Simulation :
     await new Promise(resolve => setTimeout(resolve, 1200))
 
     success.value = true
-    setTimeout(() => { success.value = false }, 4000)
   } catch (error) {
-    console.error("Erreur serveur :", error)
+    console.error('Erreur serveur :', error)
   } finally {
     loading.value = false
+
+    // CORRECTION 2 : Retour à la ligne pour l'instruction à l'intérieur du setTimeout
+    setTimeout(() => {
+      success.value = false
+    }, 4000)
   }
 }
-</script>

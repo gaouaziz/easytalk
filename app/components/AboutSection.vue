@@ -1,8 +1,10 @@
 <template>
-  <section id="about" class="bg-gray-50 py-16 sm:py-24">
+  <section
+    id="about"
+    class="bg-gray-50 py-16 sm:py-24"
+  >
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-
         <!-- Image (Forcée à GAUCHE sur grand écran grâce à lg:order-first, passe en dessous sur mobile) -->
         <div class="lg:order-first w-full">
           <div class="relative overflow-hidden rounded-3xl bg-[#06213d] shadow-xl aspect-video lg:aspect-[4/3] xl:aspect-[16/10]">
@@ -45,7 +47,6 @@
 
           <!-- Grille des fonctionnalités thématiques -->
           <div class="mt-8 grid gap-5 sm:grid-cols-2">
-
             <!-- Carte 1 -->
             <div class="group rounded-2xl bg-white p-6 shadow-sm border border-gray-100 transition hover:shadow-md">
               <div
@@ -79,10 +80,8 @@
                 Build true confidence when communicating with native styles and modern visual tools.
               </p>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   </section>

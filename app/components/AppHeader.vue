@@ -3,14 +3,16 @@
     class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#06213d]/90 backdrop-blur-md"
   >
     <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
-
       <!-- Logo -->
-      <NuxtLink to="/" class="flex items-center gap-3">
+      <NuxtLink
+        to="/"
+        class="flex items-center gap-3"
+      >
         <img
           src="/images/easy-talk-logo.png"
           alt="EasyTalk"
           class="h-11 w-auto"
-        />
+        >
       </NuxtLink>
 
       <!-- Desktop navigation -->
