@@ -67,7 +67,6 @@ export default defineEventHandler(async (event) => {
     return {
       success: true
     }
-
   } catch (error) {
     console.error('--- SMTP ERROR DETAILS ---')
     console.error(error)

@@ -123,8 +123,6 @@
 <script setup>
 import { ref } from 'vue'
 
-const config = useRuntimeConfig()
-
 const isSubmitting = ref(false)
 const isSuccess = ref(false)
 
