@@ -19,13 +19,13 @@
 
       <form
         class="mt-6 space-y-5"
-        @submit.prevent="handleSubmit"
+        @submit.prevent="handleContactSubmit"
       >
         <!-- Champ Nom -->
         <div>
           <label class="mb-2 block text-sm font-semibold text-white/90">Your name</label>
           <input
-            v-model.trim="formData.name"
+            v-model.trim="contactForm.name"
             type="text"
             required
             placeholder="John Doe"
@@ -37,7 +37,7 @@
         <div>
           <label class="mb-2 block text-sm font-semibold text-white/90">Email</label>
           <input
-            v-model.trim="formData.email"
+            v-model.trim="contactForm.email"
             type="email"
             required
             placeholder="you@example.com"
@@ -50,7 +50,7 @@
           <label class="mb-2 block text-sm font-semibold text-white/90">What would you like to improve?</label>
           <div class="relative">
             <select
-              v-model="formData.objective"
+              v-model="contactForm.objective"
               class="w-full appearance-none rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-white outline-none transition-all focus:border-orange-400 focus:bg-white/10 focus:ring-2 focus:ring-orange-400/20"
             >
               <option
@@ -123,26 +123,44 @@
 <script setup>
 import { ref } from 'vue'
 
-// Déclaration de l'événement pour communiquer avec le parent
-const emit = defineEmits(['submit'])
+const isSubmitting = ref(false)
+const isSuccess = ref(false)
 
-// Props pour contrôler l'état de chargement et de succès depuis le parent
-defineProps({
-  isSubmitting: { type: Boolean, default: false },
-  isSuccess: { type: Boolean, default: false }
-})
-
-const formData = ref({
+const contactForm = ref({
   name: '',
   email: '',
-  objective: 'Speaking'
+  subject: 'General Inquiry',
+  message: ''
 })
 
-const handleSubmit = () => {
-  // On envoie une copie des données au parent, et on vide le formulaire si nécessaire
-  emit('submit', { ...formData.value })
+const handleContactSubmit = async () => {
+  isSubmitting.value = true
 
-  // Optionnel : réinitialiser après soumission
-  formData.value = { name: '', email: '', objective: 'Speaking' }
+  try {
+    // Appel à notre nouvelle API serveur Nuxt
+    await $fetch('/api/contact', {
+      method: 'POST',
+      body: contactForm.value
+    })
+
+    isSuccess.value = true
+
+    // Formatage sur plusieurs lignes pour ESLint
+    contactForm.value = {
+      name: '',
+      email: '',
+      subject: 'General Inquiry',
+      message: ''
+    }
+  } catch (error) {
+    console.error('Error sending message:', error)
+    alert('Could not send your message. Please try again.')
+  } finally {
+    isSubmitting.value = false
+
+    setTimeout(() => {
+      isSuccess.value = false
+    }, 5000)
+  }
 }
 </script>
