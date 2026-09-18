@@ -69,7 +69,7 @@ export default defineEventHandler(async (event) => {
   try {
     await transporter.sendMail({
       from: `"EasyTalk" <${zohoEmail}>`,
-      to: 'aziz@gaou.online, gaouaziz@gmail.com, ossamabolmani@gmail.com',
+      to: 'aziz@gaou.online, ossamabolmani@gmail.com',
 
       // Only use replyTo when a valid email was provided
       ...(email && {
@@ -115,22 +115,22 @@ export default defineEventHandler(async (event) => {
               </h2>
 
               <p>
-                <strong>الاسم الكامل:</strong>
+                <strong>Name : </strong>
                 ${safeName}
               </p>
 
               <p>
-                <strong>رقم الواتساب:</strong>
+                <strong>WhatsApp : </strong>
                 ${safeWhatsapp}
               </p>
 
               <p>
-                <strong>Email:</strong>
+                <strong>Email : </strong>
                 ${safeEmail}
               </p>
 
               <p>
-                <strong>مستوى اللغة الإنجليزية:</strong>
+                <strong>Level : </strong>
                 ${safeLevel}
               </p>
 
