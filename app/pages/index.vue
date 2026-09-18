@@ -5,6 +5,5 @@
     <HowWeTeachSection />
     <AboutSection />
     <FaqSection />
-    <ContactSection />
   </div>
 </template>

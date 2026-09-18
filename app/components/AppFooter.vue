@@ -102,11 +102,23 @@
         </div>
       </div>
 
-      <!-- Copyright Section (Optimisé avec une marge réduite à py-8) -->
+      <!-- Copyright Section -->
       <div
         class="mt-12 border-t border-white/10 pt-8 text-center text-sm text-white/40"
       >
-        &copy; {{ new Date().getFullYear() }} EasyTalk. All rights reserved.
+        <p>
+          &copy; {{ new Date().getFullYear() }} EasyTalk. All rights reserved.
+          <span class="mx-2 text-white/20">•</span>
+          Developed by
+          <a
+            href="https://www.gaou.online/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-medium text-white/60 transition-colors duration-200 hover:text-orange-400"
+          >
+            Aziz Gaou
+          </a>
+        </p>
       </div>
     </div>
   </footer>
