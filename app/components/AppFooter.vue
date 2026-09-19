@@ -74,7 +74,7 @@
 
             <li>
               <a
-                href="#contact"
+                href="#easytalk-contact-form"
                 class="transition-colors duration-200 hover:text-orange-400"
               >
                 Contact
@@ -94,7 +94,7 @@
           </p>
 
           <a
-            href="/"
+            href="#easytalk-contact-form"
             class="mt-5 inline-flex rounded-full bg-orange-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-orange-500/10 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/20 active:scale-[0.98]"
           >
             Get Started

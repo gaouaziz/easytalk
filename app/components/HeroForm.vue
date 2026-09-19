@@ -1,5 +1,6 @@
 <template>
   <div
+    id="easytalk-contact-form"
     dir="rtl"
     class="relative z-10 mt-12 w-full lg:ml-auto lg:mt-0 lg:w-[430px]"
   >
