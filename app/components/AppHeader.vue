@@ -17,51 +17,12 @@
         >
       </NuxtLink>
 
-      <!-- Desktop navigation -->
-      <nav class="hidden items-center gap-8 md:flex">
-        <a
-          href="#home"
-          class="text-sm font-medium text-white/90 transition hover:text-orange-400"
-        >
-          Home
-        </a>
-
-        <a
-          href="#about"
-          class="text-sm font-medium text-white/90 transition hover:text-orange-400"
-        >
-          About
-        </a>
-
-        <a
-          href="#faq"
-          class="text-sm font-medium text-white/90 transition hover:text-orange-400"
-        >
-          FAQ
-        </a>
-
-        <a
-          href="#easytalk-contact-form"
-          class="text-sm font-medium text-white/90 transition hover:text-orange-400"
-        >
-          Contact
-        </a>
-      </nav>
-
-      <!-- Desktop CTA -->
+      <!-- CTA -->
       <a
         href="#easytalk-contact-form"
-        class="hidden rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-400 md:inline-flex"
+        class="inline-flex max-w-[240px] md:max-w-none items-center justify-center rounded-full bg-orange-500 px-4 py-2.5 md:px-6 md:py-3 text-center text-xs sm:text-sm md:text-base font-bold leading-tight text-white shadow-lg shadow-orange-500/20 transition hover:bg-orange-400 active:scale-95"
       >
-        Start Learning
-      </a>
-
-      <!-- Mobile CTA -->
-      <a
-        href="#easytalk-contact-form"
-        class="inline-flex max-w-[220px] items-center justify-center rounded-full bg-orange-500 px-4 py-2.5 text-center text-xs font-bold leading-tight text-white shadow-lg shadow-orange-500/20 transition hover:bg-orange-400 active:scale-95 md:hidden sm:px-5 sm:text-sm"
-      >
-        🚀 استغل الخصم وحجز بلاصتك دابا
+        تواصل معنا الآن
       </a>
     </div>
   </header>

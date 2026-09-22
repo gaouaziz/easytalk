@@ -8,21 +8,19 @@
       class="rounded-3xl border border-white/15 bg-[#06213d]/90 p-6 shadow-2xl backdrop-blur-xl sm:p-8"
     >
       <!-- Title -->
-      <h2 class="text-center text-2xl font-bold text-white sm:text-3xl">
-        عرض خاص لفترة محدودة! 🔥
+      <h2 class="text-center text-xl font-bold text-white sm:text-2xl leading-snug">
+        عمّر دابا المعلومات ديالك، وغادي نتواصلو معاك.
       </h2>
-
-      <p class="mt-3 text-center text-sm leading-6 text-white/70">
-        سجل معلوماتك وسنتواصل معك عبر الواتساب لتأكيد التسجيل.
-      </p>
 
       <!-- Message de succès -->
       <div
         v-if="isSuccess"
-        class="mt-5 flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-400"
+        class="mt-5 flex items-start gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-400"
       >
-        <span>✨</span>
-        <span>شكراً لك! سنتواصل معك قريباً عبر الواتساب.</span>
+        <span class="text-base">✨</span>
+        <p class="leading-6 font-medium">
+          شكراً لك! سنتواصل معك قريباً عبر الواتساب.
+        </p>
       </div>
 
       <form
@@ -62,22 +60,6 @@
             placeholder="0691 71 17 32"
             class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-right text-white placeholder:text-white/30 outline-none transition-all focus:border-orange-400 focus:bg-white/10 focus:ring-2 focus:ring-orange-400/20"
             @input="formatWhatsapp"
-          >
-        </div>
-
-        <!-- Email optionnel -->
-        <div>
-          <label class="mb-2 block text-sm font-semibold text-white/90">
-            البريد الإلكتروني
-            <span class="font-normal text-white/40">(اختياري)</span>
-          </label>
-
-          <input
-            v-model.trim="contactForm.email"
-            type="email"
-            autocomplete="email"
-            placeholder="you@example.com"
-            class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-left text-white placeholder:text-white/30 outline-none transition-all focus:border-orange-400 focus:bg-white/10 focus:ring-2 focus:ring-orange-400/20"
           >
         </div>
 
@@ -144,7 +126,6 @@
           <div class="space-y-3 text-sm leading-6 text-white">
             <div class="flex items-start gap-2">
               <span class="shrink-0 text-lg">👥</span>
-
               <p>
                 <span class="font-semibold">دورة جماعية : </span>
                 <span class="mx-1 text-white/40 line-through">800dh</span>
@@ -155,7 +136,6 @@
 
             <div class="flex items-start gap-2">
               <span class="shrink-0 text-lg">🎯</span>
-
               <p>
                 <span class="font-semibold">حصص فردية (1-on-1) : </span>
                 <span class="mx-1 text-white/40 line-through">150dh</span>
@@ -186,7 +166,6 @@
               stroke="currentColor"
               stroke-width="4"
             />
-
             <path
               class="opacity-75"
               fill="currentColor"
@@ -195,7 +174,7 @@
           </svg>
 
           <span>
-            {{ isSubmitting ? 'جاري الإرسال...' : '🚀 استغل الخصم وحجز بلاصتك دابا' }}
+            {{ isSubmitting ? 'جاري الإرسال...' : 'تواصل معنا الآن' }}
           </span>
         </button>
       </form>
@@ -206,58 +185,44 @@
 <script setup>
 import { ref } from 'vue'
 
-const isSubmitting = ref(false)
-const isSuccess = ref(false)
+// Synchronisation propre avec la logique d'état de votre composant parent Hero
+defineProps({
+  isSubmitting: {
+    type: Boolean,
+    default: false
+  },
+  isSuccess: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const emit = defineEmits(['submit'])
 
 const contactForm = ref({
   name: '',
   whatsapp: '',
-  email: '',
   level: ''
 })
 
-const handleContactSubmit = async () => {
-  isSubmitting.value = true
-  isSuccess.value = false
+const handleContactSubmit = () => {
+  // Transmet les données du formulaire directement à la fonction onFormSubmit du parent
+  emit('submit', { ...contactForm.value })
 
-  try {
-    await $fetch('/api/contact', {
-      method: 'POST',
-      body: contactForm.value
-    })
-
-    isSuccess.value = true
-
-    contactForm.value = {
-      name: '',
-      whatsapp: '',
-      email: '',
-      level: ''
-    }
-  } catch (error) {
-    console.error('Error sending registration:', error)
-
-    alert(
-      'تعذر إرسال الطلب. المرجو المحاولة مرة أخرى.'
-    )
-  } finally {
-    isSubmitting.value = false
-
-    setTimeout(() => {
-      isSuccess.value = false
-    }, 5000)
-  }
+  // Optionnel : Réinitialise localement les champs après l'envoi si besoin
+  // (Il est plus propre de surveiller le succès depuis le parent pour réinitialiser)
 }
+
 const formatWhatsapp = (event) => {
   let value = event.target.value
 
-  // Remove everything except numbers
+  // Supprime tout sauf les chiffres
   value = value.replace(/\D/g, '')
 
-  // Maximum 10 digits
+  // Limite stricte à 10 chiffres (Format marocain standard)
   value = value.slice(0, 10)
 
-  // 0691 71 17 32
+  // Découpage automatique pour le format visuel (0691 71 17 32)
   const parts = [
     value.slice(0, 4),
     value.slice(4, 6),
