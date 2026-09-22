@@ -9,63 +9,40 @@
     />
 
     <div
-      class="mx-auto flex min-h-[760px] max-w-7xl items-center px-6 py-28 lg:px-8"
+      class="mx-auto flex min-h-[720px] max-w-7xl items-center px-4 sm:px-6 py-20 lg:py-28 lg:px-8"
     >
       <div
         class="grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-16"
       >
-        <!-- TEXT -->
+        <!-- TEXT (Optimisé avec des animations d'entrée) -->
         <div
           dir="rtl"
           class="order-1 relative z-10 max-w-2xl text-right lg:order-1"
         >
           <!-- Badge -->
           <span
-            class="inline-flex rounded-full border border-orange-400/30 bg-orange-400/10 px-4 py-2 text-sm font-medium text-orange-300"
+            class="inline-flex items-center rounded-full border border-orange-400/30 bg-orange-400/10 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-orange-300 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/20"
           >
-            تعلّم الإنجليزية بطريقة بسيطة وفعّالة
+            ✨ تعلّم الإنجليزية بطريقة بسيطة وفعّالة
           </span>
 
-          <!-- Heading -->
+          <!-- Heading (Hauteur de ligne réajustée pour la Darija) -->
           <h1
-            class="mt-6 text-4xl font-bold leading-[1.2] tracking-tight text-white sm:text-5xl lg:text-6xl"
+            class="mt-6 text-3xl font-extrabold leading-[1.3] text-white sm:text-5xl lg:text-6xl tracking-tight"
           >
-            بغيتي تخدم ولا تقرا
-            <span class="text-orange-400">
-              فبلاد كتهضر بالإنجليزية؟
-            </span>
-
-            <span class="mt-3 block text-white">
-              الطريق ديالك كيبدا من هنا 🚀
+            بارك عليك ما تعلم الانجليزية بالطرق التقليدية
+            بدا دابا بطريقة جديدة اللي غاتخليك
+            <span class="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
+              تهضر وتكتب بحال شي ميريكاني
             </span>
           </h1>
 
-          <!-- Description -->
+          <!-- Description (Rendu de lecture plus fluide) -->
           <p
-            class="mt-6 max-w-xl text-lg leading-8 text-white/75 sm:text-xl"
+            class="mt-6 max-w-xl text-base leading-8 text-white/80 sm:text-lg lg:text-xl"
           >
-            مع
-            <strong class="font-semibold text-white">EasyTalk</strong>،
-            غادي تمارس الإنجليزية، تطور المستوى ديالك، وتكتسب الثقة باش تهضر
-            بالإنجليزية بلا تردد.
+            ولو أن الطرق التقليدية كتخليك تكتسب بعض الكلمات والقواعد، إلا أنها ما كتخليكش تعبّر، تتواصل وتهضر بالإنجليزية بمستوى متقدم.
           </p>
-
-          <!-- CTA -->
-          <div class="mt-8 flex flex-wrap justify-end gap-4">
-            <a
-              href="#temoignages-audio"
-              class="rounded-full bg-orange-500 px-7 py-3.5 font-semibold text-white shadow-lg shadow-orange-500/20 transition hover:bg-orange-400"
-            >
-              تقييمات الطلاب
-            </a>
-
-            <a
-              href="#about"
-              class="rounded-full border border-white/30 px-7 py-3.5 font-semibold text-white transition hover:bg-white/10"
-            >
-              اكتشف EasyTalk
-            </a>
-          </div>
         </div>
 
         <!-- FORM -->
@@ -89,21 +66,45 @@ import { ref } from 'vue'
 const loading = ref(false)
 const success = ref(false)
 
-const onFormSubmit = async (_payload) => {
+const onFormSubmit = async (payload) => {
   loading.value = true
+  success.value = false
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 1200))
+    console.log('Sending contact form:', payload)
+
+    await $fetch('/api/contact', {
+      method: 'POST',
+      body: payload
+    })
+
+    console.log('Email sent successfully')
 
     success.value = true
   } catch (error) {
-    console.error('Erreur serveur :', error)
+    console.error('Error sending form:', error)
+
+    alert('Une erreur est survenue. Veuillez réessayer.')
   } finally {
     loading.value = false
-
-    setTimeout(() => {
-      success.value = false
-    }, 4000)
   }
 }
 </script>
+
+<style scoped>
+/* Petite animation CSS native et légère pour le chargement du texte */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+</style>

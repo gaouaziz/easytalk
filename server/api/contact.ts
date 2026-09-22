@@ -1,4 +1,3 @@
-// server/api/contact.ts
 import nodemailer from 'nodemailer'
 
 export default defineEventHandler(async (event) => {
@@ -9,11 +8,10 @@ export default defineEventHandler(async (event) => {
   const {
     name,
     whatsapp,
-    email,
     level
   } = body
 
-  // Validate required fields
+  // Validation
   if (!name || !whatsapp) {
     throw createError({
       statusCode: 400,
@@ -21,20 +19,10 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // Zoho credentials
-  const zohoEmail = config.zohoUser
-  const zohoPassword = config.zohoPass
+  // Clean WhatsApp number
+  const cleanWhatsapp = String(whatsapp).replace(/\s/g, '')
 
-  if (!zohoEmail || !zohoPassword) {
-    console.error('Zoho credentials are missing')
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Email service is not configured'
-    })
-  }
-
-  // Escape HTML to prevent user input from being interpreted as HTML
+  // Escape HTML
   const escapeHtml = (value: string) => {
     return value
       .replace(/&/g, '&amp;')
@@ -45,163 +33,98 @@ export default defineEventHandler(async (event) => {
   }
 
   const safeName = escapeHtml(String(name))
-  const safeWhatsapp = escapeHtml(String(whatsapp))
-  const safeEmail = email
-    ? escapeHtml(String(email))
-    : 'Non renseigné'
-
+  const safeWhatsapp = escapeHtml(cleanWhatsapp)
   const safeLevel = level
     ? escapeHtml(String(level))
     : 'Non renseigné'
 
-  // Zoho SMTP
+  // SMTP transporter
   const transporter = nodemailer.createTransport({
     host: 'smtp.zoho.com',
     port: 465,
     secure: true,
-
     auth: {
-      user: zohoEmail,
-      pass: zohoPassword
+      user: config.zohoUser,
+      pass: config.zohoPass
     }
   })
 
-  try {
-    await transporter.sendMail({
-      from: `"EasyTalk" <${zohoEmail}>`,
-      to: 'aziz@gaou.online, ossamabolmani@gmail.com',
+  // Verify SMTP connection
+  await transporter.verify()
 
-      // Only use replyTo when a valid email was provided
-      ...(email && {
-        replyTo: email
-      }),
+  // Send email
+  await transporter.sendMail({
+    from: `"EasyTalk" <${config.zohoUser}>`,
+    to: 'aziz@gaou.online, ossamabolmani@gmail.com',
 
-      subject: `EasyTalk - Nouvelle inscription : ${name}`,
+    subject: `EasyTalk - Nouvelle inscription : ${name}`,
 
-      html: `
-        <!DOCTYPE html>
-        <html lang="ar" dir="rtl">
-          <head>
-            <meta charset="UTF-8">
-            <title>EasyTalk - Nouvelle inscription</title>
-          </head>
+    html: `
+      <div
+        dir="rtl"
+        style="
+          font-family: Arial, sans-serif;
+          max-width: 600px;
+          margin: auto;
+          padding: 30px;
+        "
+      >
+        <h2 style="color: #06213d;">
+          🎉 تسجيل جديد في EasyTalk
+        </h2>
 
-          <body
-            style="
-              margin: 0;
-              padding: 20px;
-              background-color: #f5f7fa;
-              font-family: Arial, sans-serif;
-              color: #1f2937;
-            "
-          >
-            <div
-              style="
-                max-width: 600px;
-                margin: 0 auto;
-                background-color: #ffffff;
-                border-radius: 12px;
-                padding: 30px;
-                border: 1px solid #e5e7eb;
-              "
-            >
-              <h2
-                style="
-                  margin-top: 0;
-                  color: #06213d;
-                "
-              >
-                🎉 تسجيل جديد في EasyTalk
-              </h2>
+        <hr>
 
-              <p>
-                <strong>Name : </strong>
-                ${safeName}
-              </p>
+        <p>
+          <strong>الاسم الكامل:</strong><br>
+          ${safeName}
+        </p>
 
-              <p>
-                <strong>WhatsApp : </strong>
-                ${safeWhatsapp}
-              </p>
+        <p>
+          <strong>رقم الواتساب:</strong><br>
+          ${safeWhatsapp}
+        </p>
 
-              <p>
-                <strong>Email : </strong>
-                ${safeEmail}
-              </p>
+        <p>
+          <strong>مستوى اللغة الإنجليزية:</strong><br>
+          ${safeLevel}
+        </p>
 
-              <p>
-                <strong>Level : </strong>
-                ${safeLevel}
-              </p>
+        <hr>
 
-              <hr
-                style="
-                  margin: 25px 0;
-                  border: none;
-                  border-top: 1px solid #e5e7eb;
-                "
-              >
+        <p>
+          <strong>👥 دورة جماعية:</strong>
+          <span style="text-decoration: line-through;">
+            800dh
+          </span>
+          <strong style="color: #f97316;">
+            500dh
+          </strong>
+          لـ 3 أشهر
+        </p>
 
-              <h3 style="color: #06213d;">
-                العرض الحالي
-              </h3>
+        <p>
+          <strong>🎯 حصص فردية:</strong>
+          <span style="text-decoration: line-through;">
+            150dh
+          </span>
+          <strong style="color: #f97316;">
+            100dh
+          </strong>
+          للحصة
+        </p>
 
-              <p>
-                👥 <strong>دورة جماعية:</strong>
-                <span style="text-decoration: line-through; color: #9ca3af;">
-                  800dh
-                </span>
-                <strong style="color: #f97316;">
-                  500dh
-                </strong>
-                لـ 3 أشهر
-              </p>
+        <hr>
 
-              <p>
-                🎯 <strong>حصص فردية (1-on-1):</strong>
-                <span style="text-decoration: line-through; color: #9ca3af;">
-                  150dh
-                </span>
-                <strong style="color: #f97316;">
-                  100dh
-                </strong>
-                للحصة
-              </p>
+        <p style="color: #666;">
+          تم إرسال هذا الطلب من نموذج التسجيل في موقع EasyTalk.
+        </p>
+      </div>
+    `
+  })
 
-              <hr
-                style="
-                  margin: 25px 0;
-                  border: none;
-                  border-top: 1px solid #e5e7eb;
-                "
-              >
-
-              <p
-                style="
-                  color: #6b7280;
-                  font-size: 13px;
-                "
-              >
-                تم إرسال هذا الطلب من نموذج التسجيل في موقع EasyTalk.
-              </p>
-            </div>
-          </body>
-        </html>
-      `
-    })
-
-    console.log('EasyTalk registration email sent successfully')
-
-    return {
-      success: true
-    }
-  } catch (error) {
-    console.error('--- SMTP ERROR DETAILS ---')
-    console.error(error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Failed to send email'
-    })
+  return {
+    success: true,
+    message: 'Email sent successfully'
   }
 })
