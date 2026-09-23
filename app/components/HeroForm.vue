@@ -119,33 +119,6 @@
           </div>
         </div>
 
-        <!-- Offers -->
-        <div
-          class="rounded-2xl border border-orange-400/20 bg-orange-400/5 p-4"
-        >
-          <div class="space-y-3 text-sm leading-6 text-white">
-            <div class="flex items-start gap-2">
-              <span class="shrink-0 text-lg">👥</span>
-              <p>
-                <span class="font-semibold">دورة جماعية : </span>
-                <span class="mx-1 text-white/40 line-through">800dh</span>
-                <span class="font-bold text-orange-400">500dh</span>
-                <span class="text-white/70">لـ 3 أشهر</span>
-              </p>
-            </div>
-
-            <div class="flex items-start gap-2">
-              <span class="shrink-0 text-lg">🎯</span>
-              <p>
-                <span class="font-semibold">حصص فردية (1-on-1) : </span>
-                <span class="mx-1 text-white/40 line-through">150dh</span>
-                <span class="font-bold text-orange-400">100dh</span>
-                <span class="text-white/70">للحصة</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
         <!-- CTA -->
         <button
           type="submit"
