@@ -3,60 +3,67 @@
     id="temoignages-audio"
     class="bg-gray-50 py-16 sm:py-24"
   >
-    <div class="mx-auto max-w-5xl px-6 lg:px-8">
-      <!-- En-tête de section -->
-      <div class="mx-auto max-w-2xl text-center space-y-3">
-        <span class="text-sm font-bold uppercase tracking-wider text-orange-500">
-          Student Reviews
-        </span>
-        <h2 class="mt-4 text-4xl font-extrabold tracking-tight text-[#06213d] sm:text-5xl">
-          سْمع بْراسك أش كايقولو الطّالَبة ديالنا —
-          <span class="block text-orange-500 lg:inline">بْالصّوت ديالْهُم</span>
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <!-- En-tête de section --> <div class="mx-auto mb-14 max-w-2xl space-y-3 text-center">
+        <span class="text-sm font-bold uppercase tracking-wider text-orange-500"> Student Reviews </span> <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-[#06213d] sm:text-4xl">
+          سمع آراء طلبتنا بصوتهم
         </h2>
-      </div>
-
-      <!-- Grille de cartes Audio (2 colonnes sur tablette/ordinateur) -->
-      <div class="mt-14 grid gap-6 sm:grid-cols-2">
+      </div> <!-- Grille des témoignages --> <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <div
           v-for="(review, index) in audioReviews"
           :key="index"
-          class="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-200 shadow-sm hover:shadow-md hover:border-orange-200"
+          :data-playing="activeAudioIndex === index"
+          class="group flex flex-col justify-between rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-300 hover:shadow-md"
         >
-          <!-- Profil de l'étudiant -->
-          <div class="flex items-center gap-4 mb-5">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-100 text-orange-600 font-bold text-lg">
-              {{ review.name.charAt(0) }}
-            </div>
-            <div>
-              <h3 class="font-bold text-[#06213d] text-lg leading-snug">
-                {{ review.name }}
+          <!-- Entête de la carte --> <div class="mb-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <!-- Icône microphone --> <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-500 transition-colors group-hover:bg-orange-500 group-hover:text-white">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                > <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"
+                /> </svg>
+              </div> <!-- Titre --> <h3 class="text-base font-bold tracking-tight text-[#06213d]">
+                Review {{ index + 1 }}
               </h3>
-              <p class="text-xs text-gray-500 tracking-wide font-medium">
-                {{ review.level }}
-              </p>
+            </div> <!-- Onde sonore --> <div
+              class="flex h-5 w-6 items-end gap-[3px]"
+              aria-hidden="true"
+            >
+              <span
+                data-audio-bar
+                style="--bar-delay: 0.1s"
+              /> <span
+                data-audio-bar
+                style="--bar-delay: 0.4s"
+              /> <span
+                data-audio-bar
+                style="--bar-delay: 0.2s"
+              /> <span
+                data-audio-bar
+                style="--bar-delay: 0.5s"
+              />
             </div>
-          </div>
-
-          <!-- Commentaire écrit rapide (dir="rtl" ajouté pour un alignement parfait de la Darija) -->
-          <p
-            dir="rtl"
-            class="text-right text-base text-gray-600 font-medium leading-relaxed mb-6 flex-grow"
-          >
-            " {{ review.text }} "
-          </p>
-
-          <!-- Lecteur MP3 HTML5 personnalisé & épuré -->
-          <div class="w-full pt-4 border-t border-gray-100">
+          </div> <!-- Lecteur MP3 --> <div class="w-full border-t border-gray-50 pt-3">
             <audio
               controls
-              class="w-full h-9 accent-orange-500 rounded-lg outline-none"
-            >
-              <source
-                :src="review.audioPath"
-                type="audio/mpeg"
-              >
-              Votre navigateur ne supporte pas l'élément audio.
-            </audio>
+              preload="metadata"
+              class="h-9 w-full rounded-lg accent-orange-500 outline-none"
+              @play="handlePlay(index)"
+              @pause="handlePause(index)"
+              @ended="handleEnded(index)"
+            > <source
+              :src="review.audioPath"
+              type="audio/mpeg"
+            > Votre navigateur ne supporte pas l'élément audio. </audio>
           </div>
         </div>
       </div>
@@ -67,39 +74,66 @@
 <script setup>
 import { ref } from 'vue'
 
-// Liste des 4 témoignages étudiants optimisés en Darija marocaine
-const audioReviews = ref([
-  {
-    name: 'Anass B.',
-    level: 'Étudiant • Pack Conversational',
-    text: 'بفضل الحصص التفاعلية، قدرت أخيراً نتغلب على العقدة ديال الهضرة. والمواضيع اليومية كاتعاون بزاف !',
-    audioPath: '/audio/review-1.mp3'
-  },
-  {
-    name: 'Sarah M.',
-    level: 'Professionnelle • Pack Business',
-    text: 'المرونة لي كاينين في EasyTalk خلّاتني ندخّل الإنجليزية في برنامجي لّي عامر بزاف. الثقة ديالي في الاجتماعات تضاعفات !',
-    audioPath: '/audio/review-2.mp3'
-  },
-  {
-    name: 'Youssef K.',
-    level: 'Étudiant • Pack Débutant',
-    text: 'ما كانش عندي مستوى طالع في الأول، ولكن البيئة لي كاتشجع وبلا ضغوطات عاوناتني نتقدّم دغيا وبسرعة.',
-    audioPath: '/audio/review-3.mp3'
-  },
-  {
-    name: 'Lina T.',
-    level: 'Préparation Examen • Pack Intensif',
-    text: 'متابعة الإحصائيات ديالي في الطلاقة على لوحة التحكم (dashboard) حفزاتني باش نستمر بانتظام كل سيمانة.',
-    audioPath: '/audio/review-4.mp3'
+const audioReviews = ref([{ audioPath: '/audio/review-1.mp3' }, { audioPath: '/audio/review-2.mp3' }, { audioPath: '/audio/review-3.mp3' }, { audioPath: '/audio/review-4.mp3' }])
+/* * Index of the audio currently playing. * * null = no audio is playing. */
+const activeAudioIndex = ref(null)
+/** * Start playing an audio. * * Only this review's waveform will animate. */
+const handlePlay = (index) => {
+  activeAudioIndex.value = index
+  /* * Stop all other audio elements. * * This also makes sure that only one waveform * can be animated at a time. */
+  const audioElements = document.querySelectorAll('#temoignages-audio audio')
+  audioElements.forEach((audio, audioIndex) => {
+    if (audioIndex !== index && !audio.paused) {
+      audio.pause()
+    }
+  })
+}
+/** * Pause an audio. */
+const handlePause = (index) => {
+  if (activeAudioIndex.value === index) {
+    activeAudioIndex.value = null
   }
-])
+}
+/** * Audio finished playing. */
+const handleEnded = (index) => {
+  if (activeAudioIndex.value === index) {
+    activeAudioIndex.value = null
+  }
+}
 </script>
 
 <style scoped>
-/* Personnalisation moderne de la barre de lecture audio native pour les navigateurs basés sur WebKit */
+/* ========================================= Native audio player ========================================= */
 audio::-webkit-media-controls-enclosure {
-  background-color: #f9fafb; /* gray-50 */
+  background-color: #f9fafb;
   border-radius: 12px;
+}
+/* ========================================= Sound waveform ========================================= */
+[data-audio-bar] {
+  display: block;
+  width: 3px;
+  height: 4px;
+  background-color: #f97316;
+  border-radius: 2px;
+}
+/* * Animate ONLY the waveform inside the * currently playing card. */
+[data-playing='true'] [data-audio-bar] {
+  animation: sound-wave-bounce 0.8s ease-in-out infinite alternate;
+  animation-delay: var(--bar-delay);
+}
+/* ========================================= Waveform animation ========================================= */
+@keyframes sound-wave-bounce {
+  0% {
+    height: 4px;
+  }
+  100% {
+    height: 20px;
+  }
+}
+/* ========================================= Accessibility ========================================= */
+@media (prefers-reduced-motion: reduce) {
+  [data-playing='true'] [data-audio-bar] {
+    animation: none;
+  }
 }
 </style>
