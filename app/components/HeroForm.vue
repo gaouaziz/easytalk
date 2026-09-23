@@ -1,13 +1,13 @@
 <template>
   <div
-    id="easytalk-contact-form"
     dir="rtl"
     class="relative z-10 mt-12 w-full lg:ml-auto lg:mt-0 lg:w-[430px]"
   >
+    <!-- FIX: Bordure orange 400 plus épaisse et fond flouté enrichi -->
     <div
-      class="rounded-3xl border border-white/15 bg-[#06213d]/90 p-6 shadow-2xl backdrop-blur-xl sm:p-8"
+      class="rounded-3xl border-2 border-orange-400 bg-[#517742]/90 p-6 shadow-[0_0_50px_rgba(249,115,22,0.15)] backdrop-blur-2xl sm:p-8"
     >
-      <!-- Title -->
+      <!-- Title (Blanc pur pour un contraste maximal) -->
       <h2 class="text-center text-xl font-bold text-white sm:text-2xl leading-snug">
         عمّر دابا المعلومات ديالك، وغادي نتواصلو معاك.
       </h2>
@@ -30,23 +30,24 @@
       >
         <!-- Nom -->
         <div>
-          <label class="mb-2 block text-sm font-semibold text-white/90">
+          <label class="mb-2 block text-sm font-semibold text-white">
             الاسم الكامل:
           </label>
 
+          <!-- Input: Bordures et contrastes renforcés -->
           <input
             v-model.trim="contactForm.name"
             type="text"
             required
             autocomplete="name"
             placeholder="أدخل اسمك الكامل"
-            class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-right text-white placeholder:text-white/30 outline-none transition-all focus:border-orange-400 focus:bg-white/10 focus:ring-2 focus:ring-orange-400/20"
+            class="w-full rounded-xl border border-white/25 bg-[#061c33] px-4 py-3 text-right text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-400 focus:bg-[#082544] focus:ring-4 focus:ring-orange-400/20"
           >
         </div>
 
         <!-- WhatsApp -->
         <div>
-          <label class="mb-2 block text-sm font-semibold text-white/90">
+          <label class="mb-2 block text-sm font-semibold text-white">
             رقم الواتساب:
           </label>
 
@@ -58,62 +59,55 @@
             autocomplete="tel"
             maxlength="13"
             placeholder="0691 71 17 32"
-            class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-right text-white placeholder:text-white/30 outline-none transition-all focus:border-orange-400 focus:bg-white/10 focus:ring-2 focus:ring-orange-400/20"
+            class="w-full rounded-xl border border-white/25 bg-[#061c33] px-4 py-3 text-right text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-400 focus:bg-[#082544] focus:ring-4 focus:ring-orange-400/20"
             @input="formatWhatsapp"
           >
         </div>
 
         <!-- Niveau -->
         <div>
-          <label class="mb-2 block text-sm font-semibold text-white/90">
+          <label class="mb-2 block text-sm font-semibold text-white">
             مستوى اللغة الإنجليزية
-            <span class="font-normal text-white/40">(اختياري)</span>
+            <span class="font-normal text-white/50">(اختياري)</span>
           </label>
 
           <div class="relative">
             <select
               v-model="contactForm.level"
-              class="w-full appearance-none rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-right text-white outline-none transition-all focus:border-orange-400 focus:bg-white/10 focus:ring-2 focus:ring-orange-400/20"
+              class="w-full appearance-none rounded-xl border border-white/25 bg-[#061c33] px-4 py-3 text-right text-white outline-none transition-all focus:border-orange-400 focus:bg-[#082544] focus:ring-4 focus:ring-orange-400/20"
             >
               <option
                 value=""
-                class="text-gray-900"
+                class="text-white"
               >
                 اختر مستواك
               </option>
-
               <option
                 value="Beginner"
-                class="text-gray-900"
+                class="text-white"
               >
                 مبتدئ
               </option>
-
               <option
                 value="Intermediate"
-                class="text-gray-900"
+                class="text-white"
               >
                 متوسط
               </option>
-
               <option
                 value="Advanced"
-                class="text-gray-900"
+                class="text-white"
               >
                 متقدم
               </option>
             </select>
 
-            <div
-              class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-white/50"
-            >
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-white/60">
               <svg
                 class="h-4 w-4 fill-current"
                 viewBox="0 0 20 20"
               >
-                <path
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                />
+                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
               </svg>
             </div>
           </div>
@@ -125,30 +119,7 @@
           :disabled="isSubmitting"
           class="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-5 py-3.5 font-bold text-white shadow-lg shadow-orange-500/20 transition-all hover:bg-orange-400 hover:shadow-orange-400/30 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <svg
-            v-if="isSubmitting"
-            class="h-5 w-5 animate-spin text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              class="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"
-            />
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
-          </svg>
-
-          <span>
-            {{ isSubmitting ? 'جاري الإرسال...' : 'تواصل معنا الآن' }}
-          </span>
+          <span>{{ isSubmitting ? 'جاري الإرسال...' : 'تواصل معنا الآن' }}</span>
         </button>
       </form>
     </div>
