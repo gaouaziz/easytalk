@@ -8,8 +8,9 @@
       class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_80%_30%,rgba(37,99,235,0.22),transparent_35%),radial-gradient(circle_at_10%_90%,rgba(249,115,22,0.10),transparent_30%)]"
     />
 
+    <!-- FIX: Changement du padding vertical sur mobile (pt-28 pb-16 au lieu de py-20) -->
     <div
-      class="mx-auto flex min-h-[720px] max-w-7xl items-center px-4 sm:px-6 py-20 lg:py-28 lg:px-8"
+      class="mx-auto flex min-h-[720px] max-w-7xl items-center px-4 sm:px-6 pt-28 pb-16 lg:py-28 lg:px-8"
     >
       <div
         class="grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-16"
@@ -19,9 +20,9 @@
           dir="rtl"
           class="order-1 relative z-10 max-w-2xl text-right lg:order-1"
         >
-          <!-- Badge -->
+          <!-- Badge (Ajout d'un petit mt-4 optionnel sur mobile au cas où) -->
           <span
-            class="inline-flex items-center rounded-full border border-orange-400/30 bg-orange-400/10 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-orange-300 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/20"
+            class="mt-4 sm:mt-0 inline-flex items-center rounded-full border border-orange-400/30 bg-orange-400/10 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-orange-300 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/20"
           >
             ✨ تعلّم الإنجليزية بطريقة بسيطة وفعّالة
           </span>
@@ -47,6 +48,7 @@
 
         <!-- FORM -->
         <div
+          id="easytalk-contact-form"
           class="order-2 w-full lg:order-2"
         >
           <HeroForm
