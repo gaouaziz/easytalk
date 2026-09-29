@@ -13,6 +13,12 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
+    public: {
+      siteUrl: '',
+      mediaUrl: 'https://audio.easytalk.lol',
+      imgUrl: 'https://image.easytalk.lol',
+      whatsappNumber: '212691711732'
+    },
     zohoUser: '',
     zohoPass: ''
   },
