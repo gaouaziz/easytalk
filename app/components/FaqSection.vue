@@ -74,7 +74,15 @@
 <script setup>
 import { ref } from 'vue'
 
-const audioReviews = ref([{ audioPath: '/audio/review-1.mp3' }, { audioPath: '/audio/review-2.mp3' }, { audioPath: '/audio/review-3.mp3' }, { audioPath: '/audio/review-4.mp3' }])
+const audioReviews = ref(
+  [
+    { audioPath: '/audio/review-1.mp3' },
+    { audioPath: '/audio/review-2.mp3' },
+    { audioPath: '/audio/review-3.mp3' },
+    { audioPath: '/audio/review-4.mp3' },
+    { audioPath: '/audio/review-5.mp3' }
+  ]
+)
 /* * Index of the audio currently playing. * * null = no audio is playing. */
 const activeAudioIndex = ref(null)
 /** * Start playing an audio. * * Only this review's waveform will animate. */

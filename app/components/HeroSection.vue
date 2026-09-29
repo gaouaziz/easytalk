@@ -20,14 +20,14 @@
           dir="rtl"
           class="order-1 relative z-10 max-w-2xl text-right lg:order-1"
         >
-          <!-- Badge (Ajout d'un petit mt-4 optionnel sur mobile au cas où) -->
+          <!-- Badge -->
           <span
             class="mt-4 sm:mt-0 inline-flex items-center rounded-full border border-orange-400/30 bg-orange-400/10 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-orange-300 backdrop-blur-sm transition-all duration-300 hover:bg-orange-400/20"
           >
             ✨ تعلّم الإنجليزية بطريقة بسيطة وفعّالة
           </span>
 
-          <!-- Heading (Hauteur de ligne réajustée pour la Darija) -->
+          <!-- Heading -->
           <h1
             class="mt-6 text-3xl font-extrabold leading-[1.3] text-white sm:text-5xl lg:text-6xl tracking-tight"
           >
@@ -38,7 +38,7 @@
             </span>
           </h1>
 
-          <!-- Description (Rendu de lecture plus fluide) -->
+          <!-- Description -->
           <p
             class="mt-6 max-w-xl text-base leading-8 text-white/80 sm:text-lg lg:text-xl"
           >
@@ -75,17 +75,21 @@ const onFormSubmit = async (payload) => {
   try {
     console.log('Sending contact form:', payload)
 
-    await $fetch('/api/contact', {
+    const response = await $fetch('/api/contact', {
       method: 'POST',
       body: payload
     })
 
-    console.log('Email sent successfully')
+    console.log('Email sent successfully', response)
 
     success.value = true
+
+    // ✅ Déclenchement de la redirection sécurisée vers WhatsApp côté client
+    if (response.success && response.whatsappUrl) {
+      window.location.href = response.whatsappUrl
+    }
   } catch (error) {
     console.error('Error sending form:', error)
-
     alert('Une erreur est survenue. Veuillez réessayer.')
   } finally {
     loading.value = false
