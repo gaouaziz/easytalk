@@ -158,7 +158,7 @@ ${level || 'Non renseigné'}
 `.trim()
 
   const whatsappUrl
-    = `https://wa.me/212691711732?text=${encodeURIComponent(whatsappMessage)}`
+    = `https://wa.me/${config.public.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
 
   return {
     success: true,
