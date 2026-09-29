@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       siteUrl: '',
       mediaUrl: 'https://audio.easytalk.lol',
       imgUrl: 'https://image.easytalk.lol',
-      whatsappNumber: '212691711732'
+      whatsappNumber: '212712321988'
     },
     zohoUser: '',
     zohoPass: ''
