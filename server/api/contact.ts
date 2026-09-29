@@ -34,11 +34,15 @@ export default defineEventHandler(async (event) => {
 
   const safeName = escapeHtml(String(name))
   const safeWhatsapp = escapeHtml(cleanWhatsapp)
+
   const safeLevel = level
     ? escapeHtml(String(level))
     : 'Non renseigné'
 
+  // ======================================================
   // SMTP transporter
+  // ======================================================
+
   const transporter = nodemailer.createTransport({
     host: 'smtp.zoho.com',
     port: 465,
@@ -52,7 +56,10 @@ export default defineEventHandler(async (event) => {
   // Verify SMTP connection
   await transporter.verify()
 
+  // ======================================================
   // Send email
+  // ======================================================
+
   await transporter.sendMail({
     from: `"EasyTalk" <${config.zohoUser}>`,
     to: 'aziz@gaou.online, ossamabolmani@gmail.com',
@@ -123,8 +130,39 @@ export default defineEventHandler(async (event) => {
     `
   })
 
+  // ======================================================
+  // WhatsApp message
+  // ======================================================
+
+  const whatsappMessage = `
+🎉 تسجيل جديد في EasyTalk
+
+👤 الاسم الكامل:
+${name}
+
+📱 رقم الواتساب:
+${cleanWhatsapp}
+
+📚 مستوى اللغة الإنجليزية:
+${level || 'Non renseigné'}
+
+👥 دورة جماعية:
+800dh → 500dh لـ 3 أشهر
+
+🎯 حصص فردية:
+150dh → 100dh للحصة
+
+━━━━━━━━━━━━━━
+
+تم إرسال هذا الطلب من نموذج التسجيل في موقع EasyTalk.
+`.trim()
+
+  const whatsappUrl
+    = `https://wa.me/21291711732?text=${encodeURIComponent(whatsappMessage)}`
+
   return {
     success: true,
-    message: 'Email sent successfully'
+    message: 'Email sent successfully',
+    whatsappUrl
   }
 })
