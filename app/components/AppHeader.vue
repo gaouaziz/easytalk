@@ -11,7 +11,7 @@
         class="flex shrink-0 items-center gap-3"
       >
         <img
-          src="/images/easy-talk-logo.png"
+          :src="`${config.public.imgUrl}/easy-talk-logo.png`"
           alt="EasyTalk"
           class="h-11 w-auto overflow-visible p-0.5"
         >
@@ -27,3 +27,7 @@
     </div>
   </header>
 </template>
+
+<script setup>
+const config = useRuntimeConfig()
+</script>

@@ -61,7 +61,7 @@
               @pause="handlePause(index)"
               @ended="handleEnded(index)"
             > <source
-              :src="review.audioPath"
+              :src="`${config.public.mediaUrl}/${review.audio}`"
               type="audio/mpeg"
             > Votre navigateur ne supporte pas l'élément audio. </audio>
           </div>
@@ -74,13 +74,15 @@
 <script setup>
 import { ref } from 'vue'
 
+const config = useRuntimeConfig()
+
 const audioReviews = ref(
   [
-    { audioPath: '/audio/review-1.mp3' },
-    { audioPath: '/audio/review-2.mp3' },
-    { audioPath: '/audio/review-3.mp3' },
-    { audioPath: '/audio/review-4.mp3' },
-    { audioPath: '/audio/review-5.mp3' }
+    { audio: 'review-1.mp3' },
+    { audio: 'review-2.mp3' },
+    { audio: 'review-3.mp3' },
+    { audio: 'review-4.mp3' },
+    { audio: 'review-5.mp3' }
   ]
 )
 /* * Index of the audio currently playing. * * null = no audio is playing. */
