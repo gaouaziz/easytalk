@@ -102,7 +102,7 @@ export default defineEventHandler(async (event) => {
         <p>
           <strong>👥 دورة جماعية:</strong>
           <span style="text-decoration: line-through;">
-            800dh
+            1000dh
           </span>
           <strong style="color: #f97316;">
             500dh
@@ -147,7 +147,7 @@ ${cleanWhatsapp}
 ${level || 'Non renseigné'}
 
 👥 دورة جماعية:
-800dh → 500dh لـ 3 أشهر
+1000dh → 500dh لـ 3 أشهر
 
 🎯 حصص فردية:
 150dh → 100dh للحصة
