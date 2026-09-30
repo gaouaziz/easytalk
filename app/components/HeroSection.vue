@@ -62,20 +62,42 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void
+  }
+}
+
+// Interface pour typer le paramètre de votre formulaire
+interface ContactPayload {
+  name?: string
+  email?: string
+  phone?: string
+  message?: string
+  [key: string]: unknown // Permet d'accepter d'autres champs dynamiques si nécessaire
+}
+
+// Interface pour typer la réponse retournée par votre API /api/contact
+interface ContactResponse {
+  success: boolean
+  whatsappUrl?: string
+}
 
 const loading = ref(false)
 const success = ref(false)
 
-const onFormSubmit = async (payload) => {
+const onFormSubmit = async (payload: ContactPayload) => {
   loading.value = true
   success.value = false
 
   try {
     console.log('Sending contact form:', payload)
 
-    const response = await $fetch('/api/contact', {
+    // Spécification du type de retour attendu de l'API
+    const response = await $fetch<ContactResponse>('/api/contact', {
       method: 'POST',
       body: payload
     })
@@ -84,7 +106,15 @@ const onFormSubmit = async (payload) => {
 
     success.value = true
 
-    // ✅ Déclenchement de la redirection sécurisée vers WhatsApp côté client
+    // Meta Pixel
+    if (
+      typeof window !== 'undefined'
+      && typeof window.fbq === 'function'
+    ) {
+      window.fbq('track', 'CompleteRegistration')
+    }
+
+    // WhatsApp
     if (response.success && response.whatsappUrl) {
       window.location.href = response.whatsappUrl
     }
