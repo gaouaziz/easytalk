@@ -57,8 +57,8 @@
             inputmode="numeric"
             required
             autocomplete="tel"
-            maxlength="20"
-            placeholder="0712 32 19 88"
+            maxlength="12"
+            placeholder="0691711732 ou 212691711732"
             class="w-full rounded-xl border border-slate-300 bg-[#061c33] px-4 py-3 text-right text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-400 focus:bg-[#082544] focus:ring-4 focus:ring-orange-400/20"
             @input="formatWhatsapp"
           >
@@ -154,16 +154,13 @@ const handleContactSubmit = () => {
 
 const formatWhatsapp = (event) => {
   let value = event.target.value
+
+  // Keep digits only
   value = value.replace(/\D/g, '')
-  value = value.slice(0, 10)
 
-  const parts = [
-    value.slice(0, 4),
-    value.slice(4, 6),
-    value.slice(6, 8),
-    value.slice(8, 10)
-  ].filter(Boolean)
+  // Maximum 12 digits
+  value = value.slice(0, 12)
 
-  contactForm.value.whatsapp = parts.join(' ')
+  contactForm.value.whatsapp = value
 }
 </script>
