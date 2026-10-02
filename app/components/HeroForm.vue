@@ -58,7 +58,7 @@
             required
             autocomplete="tel"
             maxlength="12"
-            placeholder="0691711732 ou 212691711732"
+            placeholder="0712321988 ou 212712321988"
             class="w-full rounded-xl border border-slate-300 bg-[#061c33] px-4 py-3 text-right text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-400 focus:bg-[#082544] focus:ring-4 focus:ring-orange-400/20"
             @input="formatWhatsapp"
           >
