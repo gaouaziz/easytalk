@@ -57,7 +57,7 @@
             inputmode="numeric"
             required
             autocomplete="tel"
-            maxlength="13"
+            maxlength="20"
             placeholder="0712 32 19 88"
             class="w-full rounded-xl border border-slate-300 bg-[#061c33] px-4 py-3 text-right text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-400 focus:bg-[#082544] focus:ring-4 focus:ring-orange-400/20"
             @input="formatWhatsapp"
